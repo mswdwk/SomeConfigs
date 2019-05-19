@@ -1,0 +1,46 @@
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+export PATH="$HOME/.cargo/bin:$HOME/sqlite-tools-osx-x86-3260000:$PATH:$HOME/.rvm/bin"
+alias ll='ls -la'
+alias gitcam='git commit --amend'
+alias gitp_m='git push origin HEAD:refs/for/master'
+alias gst='git status'
+alias gbr='git branch'
+alias gpu='git pull -r'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm use 8.12.0
+export GREP_OPTIONS='--color=auto' GREP_COLOR='31'
+export CLICOLOR=1
+ulimit -c unlimited
+
+export RUSTC_WRAPPER="$HOME/.cargo/bin/sccache"
+alias gitcom="git checkout master"
+
+export ANDROID_SDK=/usr/local/share/android-sdk
+export ANDROID_NDK="/usr/local/share/android-ndk"
+export PATH=$ANDROID_SDK/tools:$PATH
+NDK_STANDALONE_DIR=/usr/local/ndk
+export PATH="$PATH:$NDK_STANDALONE_DIR/ndk-standalone-21-armeabi/bin"
+export PATH="$PATH:$NDK_STANDALONE_DIR/ndk-standalone-21-arm64-v8a/bin"
+export PATH="$PATH:$NDK_STANDALONE_DIR/ndk-standalone-21-x86/bin"
+alias gitpbr="git checkout workstatus"
+alias gitrbc="git rebase --continue"
+alias gitsub="git submodule update --recursive"
+alias gitsui="git submodule --init"
+alias gitsbi="git submodule update --init --recursive"
+alias gitlog="git log --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cgreen(%cd) %C(bold blue)<%an>\""
+alias gitadu='git add -u'
+
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+
+#alias skp="~/.sk_search/sk_preview 1"
+#alias sks="~/.sk_search/sk_preview 0" # no preview
+alias gmelog="git log --author=`whoami` --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cgreen(%cd) %C(bold blue)<%an>\""
+export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8`
+alias gitag="git log --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cgreen(%cd) %C(bold blue)<%an>\""
+
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+

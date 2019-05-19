@@ -1,0 +1,59 @@
+# search ip addr in log
+grep -o "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]" secure
+
+#search tcp connect on Mac OS
+lsof -nP -iTCP
+git log --oneline --since 2018-08-06
+sed -i "" "/^$/d" commands.proto
+sed -i "" "s/ *//g" commands.proto
+sed -n '/2018-11-05T19:34:16.17/,/2018-11-05T19:34:20/p' xxx.log
+rg "[一-<9fff>]+" -g '*.log' --column --sort-files | grep -v '//'|grep -v "请求错误"
+git stash list --date=local
+
+# limit speed
+comcast --device=en0 --latency=2500 --target-bw=1000 --default-bw=1000 --packet-loss=30%  --target-proto=tcp,udp,icmp
+
+ ssh dragon@10.10.56.228
+ 
+ docker system df
+ docker system prune
+ install_name_tool -change @rpath/libxxx.dylib libxxx.dylib target/debug/binname-33741f148d012c52
+influx -host x.x.x.x -port 8085 -database 'default' -precision=rfc3339  -format 'csv'
+grep  -oe "request_xxx_ip\":\".*\"" xxx.log|gawk -F ":" '{print substr($2,2)}'|sort |uniq -c|sort -k1rn
+ 
+ git submodule update --init --recursive
+
+ rg "[一-鿿]+" -g 'fe.log' --column --sort-files 
+ cargo test --no-run test_http_204
+
+ #delete remote branch
+ git push origin -d <BranchName>
+ #delete local branch
+ git branch -d <BranchName>
+ #create local branch
+ git checkout -b <BranchName>
+# h-> short hash, an -> author ,ad -> modify date , s -> comment 
+ git log --pretty=format:"%h|%an|%ad | %s"
+
+ git log --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cgreen(%cd) %C(bold blue)<%an>"
+ 
+ git log --name-status 每次修改的文件列表, 显示状态
+git log --name-only 每次修改的文件列表
+git log --stat 每次修改的文件列表, 及文件修改的统计
+git whatchanged 每次修改的文件列表
+git whatchanged --stat 每次修改的文件列表, 及文件修改的统计
+git show 显示最后一次的文件改变的具体内容
+git for-each-ref --format='%(committerdate) %09 %(authorname) %09 %(refname)' | sort -k5n -k2M -k3n -k4n
+distcc
+
+git log --author="username" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
+
+protoc -I=protobuf_dir --rust_opt=expose_fields=true --rust_out=rust_src_dir pb_xxx.proto
+
+cargo install --git https://github.com/quininer/rust-protobuf --branch fork-v2.4 -f protobuf-codegen
+
+refs/changes/21/924321/35
+gem update EEScaffold
+
+# file sync
+rsync
