@@ -44,3 +44,4 @@ alias gitag="git log --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cg
 
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+ alias tcpl="lsof -nP -iTCP -sTCP:LISTEN"
