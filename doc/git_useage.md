@@ -91,3 +91,6 @@ git remote prune origin
 [Git命令参考手册！只有更全没有最全](
 https://baijiahao.baidu.com/s?id=1572090267187343&wfr=spider&for=pc)
 
+#git large file manage: git-lfs
+install
+[macos]brew install git-lfs
