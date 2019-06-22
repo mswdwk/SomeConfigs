@@ -94,3 +94,11 @@ https://baijiahao.baidu.com/s?id=1572090267187343&wfr=spider&for=pc)
 #git large file manage: git-lfs
 install
 [macos]brew install git-lfs
+
+#跟踪远程分支
+git checkout -b [分支名] [远程名]/[分支名]
+git checkout --track origin/serverfix
+
+要为本地分支设定不同于远程分支的名字，只需在第一个版本的命令里换个名字：git checkout -b sf origin/serverfix
+
+删除它：git push [远程名] :[分支名]。如果想在服务器上删除 serverfix 分支，运行下面的命令:git push origin :serverfix
