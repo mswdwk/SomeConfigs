@@ -85,12 +85,6 @@ git fetch -p
 git fetch -p origin
 git remote prune origin
 
-#参考文章
-[Git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013745374151782eb658c5a5ca454eaa451661275886c6000)
-
-[Git命令参考手册！只有更全没有最全](
-https://baijiahao.baidu.com/s?id=1572090267187343&wfr=spider&for=pc)
-
 #git large file manage: git-lfs
 install
 [macos]brew install git-lfs
@@ -102,3 +96,35 @@ git checkout --track origin/serverfix
 要为本地分支设定不同于远程分支的名字，只需在第一个版本的命令里换个名字：git checkout -b sf origin/serverfix
 
 删除它：git push [远程名] :[分支名]。如果想在服务器上删除 serverfix 分支，运行下面的命令:git push origin :serverfix
+
+# 添加远程来源
+git remote add origin git://…..git
+# git 断点续传
+```
+1) mkdir anewrepo
+2) cd anewrepo
+3) git init
+4) 添加远程源，方便后续checkout master 分支，git remote add origin git://…..git
+
+5) git fetch git://…..git
+即使断掉了，可以继续
+git fetch git://…..git
+等到fetch完会出现以下字样
+From git://….
+*branch           HEAD                -> FETCH_HEAD
+意思是把最新的数据fetch到了本地的FETCH_HEAD分支上去了
+6) 然后用git checkout FETCH_HEAD
+7) 接着可以 git checkout master.
+```
+如果执行 git fetch origin master出现下面的错误，则需要添加远程来源git remote add origin git://…..git 。
+```
+fatal: 'origin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+```
+
+#参考文章
+[Git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013745374151782eb658c5a5ca454eaa451661275886c6000)
+
+[Git命令参考手册！只有更全没有最全](
+https://baijiahao.baidu.com/s?id=1572090267187343&wfr=spider&for=pc)
+[git断点续传](https://blog.csdn.net/qq_35904259/article/details/61200880)
