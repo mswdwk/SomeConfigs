@@ -38,6 +38,7 @@ alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 
 #alias skp="~/.sk_search/sk_preview 1"
 #alias sks="~/.sk_search/sk_preview 0" # no preview
+alias sks="sk --ansi -i -c 'rg --color=always --line-number "{}"' --preview '~/script/preview.sh {}'"
 alias gmelog="git log --author=`whoami` --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cgreen(%cd) %C(bold blue)<%an>\""
 export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8`
 alias gitag="git log --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cgreen(%cd) %C(bold blue)<%an>\""
@@ -45,3 +46,4 @@ alias gitag="git log --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cg
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
  alias tcpl="lsof -nP -iTCP -sTCP:LISTEN"
+ alias sks="sk --ansi -i -c 'rg --color=always --line-number "{}"' --preview "~/script/preview.sh {}"
