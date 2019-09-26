@@ -1,0 +1,14 @@
+res= auth_plugin->authenticate_user((struct st_plugin_vio *)&mpvio, mysql);
+
+check_plugin_enabled(mysql, auth_plugin))
+
+
+static auth_plugin_t native_password_client_plugin=
+
+MYSQL_CLIENT_PLUGIN_HEADER
+
+native_password_auth_client  // client encrypto function
+
+scramble 干扰函数 
+
+SHA1_HASH_SIZE

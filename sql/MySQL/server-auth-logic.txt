@@ -1,0 +1,54 @@
+// win32
+win_main{
+setup_conn_event_handler_threads {
+    socket_conn_event_handler{
+        connection_event_loop{
+            Connection_handler_manager::process_new_connection{
+                add_connection{
+                    handle_connection{
+                        my_thread_init{}
+                        thd_prepare_connection {
+                            login_connection{
+                                check_connection{
+                                    acl_authenticate {
+                                        do_auth_once {
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+}
+
+// Linux
+mysqld_main{
+    mysqld_socket_acceptor->connection_event_loop(){
+        Connection_handler_manager::process_new_connection{
+            add_connection{
+                handle_connection{
+                    my_thread_init{}
+                    thd_prepare_connection {
+                        login_connection{
+                            check_connection{
+                                acl_check_host{}
+                                acl_authenticate {
+                                    LEX_CSTRING auth_plugin_name= default_auth_plugin_name;
+                                    mpvio.scramble[SCRAMBLE_LENGTH]= 1;
+                                    do_auth_once(thd, auth_plugin_name, &mpvio) {
+                                        st_mysql_auth *auth= (st_mysql_auth *) plugin_decl(plugin)->info;
+                                        res= auth->authenticate_user(mpvio, &mpvio->auth_info);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

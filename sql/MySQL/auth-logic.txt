@@ -1,0 +1,43 @@
+/*****************************************************************************
+  The main idea is that no password are sent between client & server on
+  connection and that no password are saved in mysql in a decodable form.
+
+  On connection a random string is generated and sent to the client.
+  The client generates a new string with a random generator inited with
+  the hash values from the password and the sent string.
+  This 'check' string is sent to the server where it is compared with
+  a string generated from the stored hash_value of the password and the
+  random string.
+
+  The password is saved (in user.password) by using the PASSWORD() function in
+  mysql.
+
+  This is .c file because it's used in libmysqlclient, which is entirely in C.
+  (we need it to be portable to a variety of systems).
+  Example:
+    update user set password=PASSWORD("hello") where user="test"
+  This saves a hashed number as a string in the password field.
+
+  The new authentication is performed in following manner:
+
+  SERVER:  public_seed=generate_user_salt()
+           send(public_seed)
+
+  CLIENT:  recv(public_seed)
+           hash_stage1=sha1("password")
+           hash_stage2=sha1(hash_stage1)
+           reply=xor(hash_stage1, sha1(public_seed,hash_stage2)
+
+           // this three steps are done in scramble() 
+
+           send(reply)
+
+     
+  SERVER:  recv(reply)
+           hash_stage1=xor(reply, sha1(public_seed,hash_stage2))
+           candidate_hash2=sha1(hash_stage1)
+           check(candidate_hash2==hash_stage2)
+
+           // this three steps are done in check_scramble()
+
+*****************************************************************************/
