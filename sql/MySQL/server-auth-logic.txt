@@ -1,30 +1,3 @@
-// win32
-win_main{
-setup_conn_event_handler_threads {
-    socket_conn_event_handler{
-        connection_event_loop{
-            Connection_handler_manager::process_new_connection{
-                add_connection{
-                    handle_connection{
-                        my_thread_init{}
-                        thd_prepare_connection {
-                            login_connection{
-                                check_connection{
-                                    acl_authenticate {
-                                        do_auth_once {
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-}
-
 // Linux
 mysqld_main{
     mysqld_socket_acceptor->connection_event_loop(){
@@ -32,6 +5,7 @@ mysqld_main{
             add_connection{
                 handle_connection{
                     my_thread_init{}
+                    THD *thd= init_new_thd(channel_info);{ THD* thd= new (std::nothrow) THD;}
                     thd_prepare_connection {
                         login_connection{
                             check_connection{
@@ -51,4 +25,43 @@ mysqld_main{
             }
         }
     }
+}
+
+
+// send_server_handshake_packet
+
+// create a db user 
+// mysql_execute_command {
+    mysql_create_user{
+        set_and_validate_user_attribute{
+            auth->generate_authentication_string(outbuf,&buflen,inbuf,inbuflen){generate_sm3_password{}}
+        }
+    }
+}
+// win32
+win_main{
+setup_conn_event_handler_threads {
+    socket_conn_event_handler{
+        connection_event_loop{
+            Connection_handler_manager::process_new_connection{
+                add_connection{
+                    handle_connection{
+                        my_thread_init{}
+                        THD *thd= init_new_thd(channel_info);
+                        thd_prepare_connection {
+                            login_connection{
+                                check_connection{
+                                    acl_authenticate {
+                                        do_auth_once {
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 }
