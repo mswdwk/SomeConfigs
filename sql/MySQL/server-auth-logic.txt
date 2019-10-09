@@ -91,3 +91,14 @@ setup_conn_event_handler_threads {
 }
 
 // server_mpvio_write_packet,server_mpvio_read_packet
+
+# problem 
+## where to get user encrypted password ?
+
+server_mpvio_read_packet{
+    parse_client_handshake_packet {
+        find_mpvio_user(MPVIO_EXT *mpvio){
+            ACL_USER *acl_user_tmp= acl_users->begin();
+        }
+    }
+}

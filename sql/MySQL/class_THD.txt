@@ -1,15 +1,25 @@
 ## Class THD important function and attribute
 ### important functions
 {
-    get_protocol_classic
+    get_protocol_classic()
+    Security_context* security_context() const { return m_security_ctx; }
+    void set_security_context(Security_context *sctx) { m_security_ctx= sctx; }
+    
 }
 ### important attributes
 {
+    Security_context m_main_security_ctx;
+    Security_context *m_security_ctx;
+
 }
 ```
 ## create THD instance
 ```
-THD* thd= new (std::nothrow) THD;
+THD* thd= new (std::nothrow) THD; {
+    thd->get_protocol_classic()->init_net(vio_tmp); 
+}
+create_thd() {
+}
 ```
 
 ## THD instance Construct
@@ -25,6 +35,15 @@ void set_security_context(Security_context *sctx) { m_security_ctx= sctx; }
 
 ```
 
+
 ## THD instance DeConstruct
 ```
 ```
+
+
+ protocol->write {
+    my_net_write {net_write_buff}
+}
+
+
+parse_client_handshake_packet
