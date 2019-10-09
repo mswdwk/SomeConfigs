@@ -1,0 +1,30 @@
+## Class THD important function and attribute
+### important functions
+{
+    get_protocol_classic
+}
+### important attributes
+{
+}
+```
+## create THD instance
+```
+THD* thd= new (std::nothrow) THD;
+```
+
+## THD instance Construct
+In file sql_class.cc line 1049, start with "THD::THD(bool enable_plugins)",until line 1253.
+```
+THD::THD(bool enable_plugins) {
+
+    init(void);
+    security_context;
+}
+Security_context* security_context() const { return m_security_ctx; }
+void set_security_context(Security_context *sctx) { m_security_ctx= sctx; }
+
+```
+
+## THD instance DeConstruct
+```
+```

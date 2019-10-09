@@ -1,0 +1,8 @@
+## std::nothrow
+THD* thd= new (std::nothrow) THD;
+在内存不足时，new (std::nothrow)并不抛出异常，而是将指针置NULL。
+## static_cast
+Channel_info* channel_info= static_cast<Channel_info*>(arg);
+c++增加了static_cast和dynamic_cast运用于继承关系类间的强制转化.
+注意：static_cast不能转换掉expression的const、volatile、或者__unaligned属性.
+dynamic_cast主要用于类层次间的上行转换和下行转换，还可以用于类之间的交叉转换(cross cast).

@@ -7,20 +7,44 @@ mysqld_main{
                     my_thread_init{}
                     THD *thd= init_new_thd(channel_info);{ THD* thd= new (std::nothrow) THD;}
                     thd_prepare_connection {
-                        login_connection{
+                        lex_start(thd);
+                        login_connection(thd){
                             check_connection{
                                 acl_check_host{}
-                                acl_authenticate {
-                                    LEX_CSTRING auth_plugin_name= default_auth_plugin_name;
-                                    mpvio.scramble[SCRAMBLE_LENGTH]= 1;
-                                    do_auth_once(thd, auth_plugin_name, &mpvio) {
-                                        st_mysql_auth *auth= (st_mysql_auth *) plugin_decl(plugin)->info;
-                                        res= auth->authenticate_user(mpvio, &mpvio->auth_info);
+                                acl_authenticate(THD *thd, enum_server_command command) {
+                                    server_mpvio_initialize(thd, &mpvio, &charset_adapter){
+                                        mpvio->read_packet= server_mpvio_read_packet;
+                                        mpvio->write_packet= server_mpvio_write_packet;
+                                        mpvio->info= server_mpvio_info;
+                                        mpvio->auth_info.user_name= NULL;
+                                        mpvio->status= MPVIO_EXT::FAILURE;
+                                        mpvio->scramble= thd->scramble;
+                                        mpvio->protocol= thd->get_protocol_classic();
                                     }
+                                    LEX_CSTRING auth_plugin_name= default_auth_plugin_name;
+                                    if(command != COM_CHANGE_USER){
+                                        mpvio.scramble[SCRAMBLE_LENGTH]= 1;
+                                        do_auth_once(thd, auth_plugin_name, &mpvio) {
+                                            st_mysql_auth *auth= (st_mysql_auth *) plugin_decl(plugin)->info;
+                                            res= auth->authenticate_user(mpvio, &mpvio->auth_info);
+                                        }
+                                    }
+                                    if (mpvio.status == MPVIO_EXT::RESTART){
+                                        auth_plugin_name= mpvio.acl_user->plugin;
+                                        res= do_auth_once(thd, auth_plugin_name, &mpvio);
+                                    }
+                                    server_mpvio_update_thd(thd, &mpvio);
+                                    
                                 }
                             }
                         }
+                        prepare_new_connection_state(thd);
                     }
+                    {   
+                        while (thd_connection_alive(thd)){if (do_command(thd))break;}
+                        end_connection(thd);
+                    }
+                    close_connection(thd);
                 }
             }
         }
@@ -65,3 +89,5 @@ setup_conn_event_handler_threads {
     }
 }
 }
+
+// server_mpvio_write_packet,server_mpvio_read_packet
