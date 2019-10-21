@@ -6,3 +6,25 @@ Channel_info* channel_info= static_cast<Channel_info*>(arg);
 c++增加了static_cast和dynamic_cast运用于继承关系类间的强制转化.
 注意：static_cast不能转换掉expression的const、volatile、或者__unaligned属性.
 dynamic_cast主要用于类层次间的上行转换和下行转换，还可以用于类之间的交叉转换(cross cast).
+
+## [invalid use of incomplete type struct 或者是class的解决办法](https://blog.csdn.net/fangyuanseu/article/details/18090149)
+
+* 出现这个问题，表明编译器不知道所用的struct 或者是class的具体实现，通常出现在如下情况：假设我们有一个class some定义在some.h中，实现在some.cpp中，我们在other.cpp中要用到这个some 的方法，于是我们再other.h中声明可一个class some，并声明了要用到的方法，这样就会导致上述的问题，解决这个问题的方法是：在other.cpp中include some.h，这样编译器就会根据该头文件找到class some的具体定义，问题也就解决了。
+
+* [可以声明一个类而不定义它](http://blog.chinaunix.net/uid-209416-id-2888131.html)
+   class Screen;//declaration of the Screen class
+   这个声明,有时候被称为前向声明(forward declaration),在程序中引入了类类型的Screen.在声明之后,定义之前,类Screen是一个不完全类型(incompete type),即已知Screen是一个类型,但不知道包含哪些成员.
+   不完全类型只能以有限方式使用,不能定义该类型的对象,不完全类型只能用于定义指向该类型的指针及引用,或者用于声明(而不是定义)使用该类型作为形参类型或返回类型的函数.
+   
+```
+/home/mysql/repo/mysql-server/plugin/auth/auth_sm3_plugin.cc: In function ‘int generate_sm3_password(char*, unsigned int*, const char*, unsigned int)’:
+/home/mysql/repo/mysql-server/plugin/auth/auth_sm3_plugin.cc:191:41: error: invalid use of incomplete type ‘class THD’
+     LEX_USER*first_user = _current_thd()->lex->user_list.head();
+                                         ^
+In file included from /home/mysql/repo/mysql-server/include/mysql/plugin_auth.h:27:0,
+                 from /home/mysql/repo/mysql-server/plugin/auth/auth_sm3_plugin.cc:19:
+/home/mysql/repo/mysql-server/include/mysql/plugin.h:49:7: error: forward declaration of ‘class THD’
+ class THD;
+       ^
+make[2]: *** [plugin/auth/CMakeFiles/mysql_sm3_password.dir/auth_sm3_plugin.cc.o] Error 1
+```
