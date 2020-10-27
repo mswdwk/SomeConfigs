@@ -1,12 +1,22 @@
+" 
+" Manage your 'runtimepath' with ease. In practical terms, pathogen.vim makes it super easy 
+" to install plugins and runtime files in their own private directories.
+" first, install plugin of pathogen on ~/.vim/autoload
+"     curl -LSso --create-dirs ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+" then you can execute pathogen
 execute pathogen#infect('autoload/{}')
 syntax on
 filetype plugin indent on
+
 set nu
 set paste
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 set laststatus=2
 
-"   config plug.vim dir,then call it
+" first, install plug.vim,
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   config plug.vim dir,then you can call it
 call plug#begin('~/.vim/autoload')
 
 " 20201025 record
@@ -27,7 +37,8 @@ Plug 'tpope/vim-pathogen'
 
 Plug 'ludovicchabant/vim-gutentags'
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+"let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root = ['.root']
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
@@ -47,7 +58,6 @@ if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
-
 Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/asyncrun.vim'
 " 自动打开 quickfix window ，高度为 6
@@ -65,7 +75,8 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
+ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
-"call pathogen#helptags()
+call plug#end()
 
 " 链接：https://www.zhihu.com/question/47691414/answer/373700711
