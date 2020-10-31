@@ -1,0 +1,71 @@
+execute pathogen#infect('autoload/{}')
+syntax on
+filetype plugin indent on
+set nu
+set paste
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+set laststatus=2
+
+"   config plug.vim dir,then call it
+call plug#begin('~/.vim/autoload')
+
+" 20201025 record
+" 作者：韦易笑
+
+" 定义插件，默认用法，和 Vundle 的语法差不多
+Plug 'junegunn/vim-easy-align'
+Plug 'skywind3000/quickmenu.vim'
+
+" 延迟按需加载，使用到命令的时候再加载或者打开对应文件类型才加载
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" 确定插件仓库中的分支或者 tag
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+Plug 'tpope/vim-pathogen'
+
+Plug 'ludovicchabant/vim-gutentags'
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+"set tags=./.tags;,.tags
+
+" 检测 ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+   silent! call mkdir(s:vim_tags, 'p')
+endif
+
+
+Plug 'skywind3000/gutentags_plus'
+Plug 'skywind3000/asyncrun.vim'
+" 自动打开 quickfix window ，高度为 6
+let g:asyncrun_open = 6
+
+" 任务结束时候响铃提醒
+let g:asyncrun_bell = 1
+
+" 设置 F10 打开/关闭 Quickfix 窗口
+nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
+
+" cpp highlight
+Plug 'octol/vim-cpp-enhanced-highlight'
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+
+
+"call pathogen#helptags()
+
+" 链接：https://www.zhihu.com/question/47691414/answer/373700711
