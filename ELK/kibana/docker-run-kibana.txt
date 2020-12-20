@@ -1,0 +1,13 @@
+docker run -d --restart=always --log-driver json-file --log-opt max-size=100m --log-opt max-file=2 --name kibana -p 5601:5601 -v /data/elk/kibana.yml:/usr/share/kibana/config/kibana.yml kibana:7.9.3
+docker run -d --log-driver json-file --log-opt max-size=100m --log-opt max-file=2 --name kibana -p 5601:5601 -v /data/elk/kibana.yml:/usr/share/kibana/config/kibana.yml kibana:7.9.3
+
+2) problem: permision denied
+```
+FATAL CLI ERROR Error: EACCES: permission denied, open '/usr/share/kibana/config/kibana.yml'
+    at Object.openSync (fs.js:443:3)
+    at readFileSync (fs.js:343:35)
+
+```
+2) slove: add argument ' --privilege=true ',when start docker.
+docker run -d --log-driver json-file --log-opt max-size=100m --log-opt max-file=2 --name kibana -p 5601:5601 --privileged=true -v /data/elk/kibana.yml:/usr/share/kibana/config/kibana.yml kibana:7.9.3
+

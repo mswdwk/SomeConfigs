@@ -1,0 +1,6 @@
+# Default Kibana configuration for docker target
+ server.name: kibana
+ server.host: "0.0.0.0"
+# find elasticsearch docker ip by 'docker inspect elasticsearch'
+ elasticsearch.hosts: [ "http://172.17.0.2:9200" ]
+ xpack.monitoring.ui.container.elasticsearch.enabled: true
