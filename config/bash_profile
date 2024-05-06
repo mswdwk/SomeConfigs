@@ -47,3 +47,4 @@ alias gitag="git log --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Cblue %s %Cg
 
  alias tcpl="lsof -nP -iTCP -sTCP:LISTEN"
  alias sks="sk --ansi -i -c 'rg --color=always --line-number "{}"' --preview "~/script/preview.sh {}"
+ alias sks2="sk --ansi -i -c 'rg --color=always --line-number \"{}\"' --preview \"~/script/preview.sh {}\" "
